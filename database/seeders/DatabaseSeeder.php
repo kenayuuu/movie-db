@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->
+
             $this->call(CategorySeeder::class);
             Movie::factory()->count(10)->create();
     }
