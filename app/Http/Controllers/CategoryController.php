@@ -3,63 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $dosens= Category::latest()->paginate(5);
+        return view('categories.category',['dosens'=>$dosens]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
+{
+    $validated = $request->validate([
+        'category_name' => 'required|max:25',
+        'description' => 'required',
+    ]);
+    Category :: create($validated);
+    // The blog post is valid...
+
+    return redirect('/category');
+}
+
+    public function edit (String $id)
     {
-        //
+        $dosen = Category::findOrFail($id);
+        return view('categories.edit_delete', ['dosens' => $dosen]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
+    public function destroy($id)
     {
-        //
+        Category::destroy($id);
+        return redirect('/category');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
+    public function update(Request $request, string $id)
     {
-        //
-    }
+        $dosen = Category::find($id);
+        $dosen->category_name = $request->category_name;
+        $dosen->description = $request->description;
+        $dosen->update();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Category $category)
-    {
-        //
+        return redirect('/category');
     }
 }
