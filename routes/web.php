@@ -5,6 +5,7 @@ use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MovieController::class, 'homepage']);
+Route::get('/movies/{id}/{slug}', [MovieController::class, 'detailmovie']);
 
 Route::get('/category', [CategoryController::class, 'index'])->name('dosen.index');
 
