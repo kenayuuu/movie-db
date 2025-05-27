@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
@@ -27,20 +29,38 @@ class MovieController extends Controller
 
     public function create()
     {
-        return view('movies.create');
+        $categories = Category::all();
+        return view('movies.create', compact('categories'));
     }
 
     public function store(Request $request): RedirectResponse
 {
     $validated = $request->validate([
         'title' => 'required|max:25',
-        'synopsis' => 'required|max:50',
-        'actors' => 'required'
+        'year' => 'required|numeric',
+        'synopsis' => 'required|max:800',
+        'category_id' => 'required|exists:categories,id',
+        'actors' => 'required',
+        'cover_image' => 'nullable|image|mimes:jpg,jpeg,webp'
     ]);
-    Movie :: create($validated);
-    // The blog post is valid...
-
-    return redirect('/movie');
+    $slug = Str::slug($request->title);
+    $cover = null;
+    if($request->hasFile('cover_image')){
+        $cover = $request->file('cover_image')->store('covers', 'public');
+    }
+    //Simpan ke tabel movies
+    Movie::create(
+        [
+            'title' => $validated['title'],
+            'slug' => $slug,
+            'year' => $validated['year'],
+            'synopsis' => $validated['synopsis'],
+            'category_id' => $validated['category_id'],
+            'actors' => $validated['actors'],
+            'cover_image' => $cover
+        ]
+    );
+    return redirect('/')->with('success', 'Movie saved successfully !');
 }
 
     public function edit (String $id)

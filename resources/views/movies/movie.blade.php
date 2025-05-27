@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.template')
 @section('title','Data Movie')
 @section('navMovie','active')
 
@@ -24,8 +24,9 @@
     <td>{{ $dosen -> synopsis}}</td>
     <td>{{ $dosen -> actors}}</td>
     <td>
-        <img src="{{ $dosen->cover_image }}" alt="{{ $dosen->title }}" width="100">
+        <img src="{{ asset('storage/' . $movie->cover_image) }}" alt="" class="img-fluid rounded-start">
     </td>
+
 
     <td>
         <!-- Tombol Edit -->

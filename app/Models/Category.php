@@ -12,4 +12,9 @@ class Category extends Model
         'category_name',
         'description'
         ];
+
+        public function movie()
+    {
+        return $this->hasMany(Movie::class);
+    }
 }

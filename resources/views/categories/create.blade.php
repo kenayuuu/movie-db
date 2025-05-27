@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.template')
 @section('content')
 @section('navCategory','active')
 

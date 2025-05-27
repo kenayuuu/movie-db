@@ -15,6 +15,9 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
+                    <div class="col-md-4">
+                        <img src="{{ asset('storage/' . $movie->cover_image) }}" alt="" class="img-fluid rounded-start">
+                    </div>
                   <h5 class="card-title">{{ $movie->title }}</h5>
                   <p class="card-text">{{ Str::words($movie->synopsis,20,'...') }}</p>
                   <a href="/movies/{{ $movie->id }}/{{ $movie->slug }}" class="btn btn-success">Read more</a>

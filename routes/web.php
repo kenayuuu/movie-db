@@ -9,8 +9,10 @@ Route::get('/movies/{id}/{slug}', [MovieController::class, 'detailmovie']);
 
 Route::get('/category', [CategoryController::class, 'index'])->name('dosen.index');
 
+Route::get('/movies', [MovieController::class, 'create']);
+
+
 Route::post('/movie', [MovieController::class, 'store'])->name('mahasiswa.store');
-Route::get('/create-movie', [MovieController::class, 'create']);
 
 Route::post('/category', [CategoryController::class, 'store'])->name('dosen.store');
 Route::get('/create-category', [CategoryController::class, 'create']);
