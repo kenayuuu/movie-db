@@ -19,7 +19,9 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
-
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/movie">Data Movie</a>
+              </li>
               @auth
               <li class="nav-item">
                 <a class="nav-link" href="/movies">Input Movie</a>

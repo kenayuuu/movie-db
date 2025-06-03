@@ -85,4 +85,11 @@ class MovieController extends Controller
 
         return redirect('/movie');
     }
+
+    public function show($id)
+{
+    $movie = Movie::with('category')->findOrFail($id);
+    return view('movies.show', compact('movie'));
+}
+
 }

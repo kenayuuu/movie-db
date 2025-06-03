@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,12 @@ public function logout(Request $request): RedirectResponse
     $request->session()->regenerateToken();
 
     return redirect('/');
+}
+
+public function dataMovie()
+{
+    $movies = Movie::latest()->paginate(6);
+        return view('homepage', compact('movies'));
 }
 
 }

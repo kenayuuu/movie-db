@@ -4,15 +4,15 @@
 
 @section('content')
 <h1>Daftar Movie :</h1>
-<a href="/movie/create" class="btn btn-primary mb-3"> Input Data Movie</a>
+<a href="/movie/create" ></a>
 
 <table class="table table-bordered table-striped">
     <tr>
         <th>No</th>
         <th>Title</th>
-        <th>Synopsis</th>
+        <th>Category</th>
         <th>Actors</th>
-        <th>Image</th>
+        {{-- <th>Image</th> --}}
         <th>Aksi</th>
     </tr>
 
@@ -21,17 +21,22 @@
     <td>{{ $dosens->firstItem()+$loop->index}}</td>
     {{-- <td>{{ $mahasiswa -> id}}</td> --}}
     <td>{{ $dosen -> title}}</td>
-    <td>{{ $dosen -> synopsis}}</td>
+    <td>{{ $dosen->category->category_name }}</td>
     <td>{{ $dosen -> actors}}</td>
-    <td>
-        <img src="{{ asset('storage/' . $movie->cover_image) }}" alt="" class="img-fluid rounded-start">
-    </td>
+    {{-- <td>
+        @if ($dosen->cover_image)
+            <img src="{{ asset('storage/' . $dosen->cover_image) }}" alt="{{ $dosen->title }}" class="img-fluid" width="100">
+        @else
+            <span class="text-muted">No Image</span>
+        @endif
+    </td> --}}
 
 
+
     <td>
+        <a href="{{ route('movie.detail', ['id' => $dosen->id, 'slug' => Str::slug($dosen->title)]) }}" class="btn btn-info btn-sm">Show</a>
         <!-- Tombol Edit -->
         <a href="{{ route('movie.edit', $dosen->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
         <!-- Tombol Hapus -->
         <form action="{{ route('movie.destroy', $dosen->id) }}" method="POST" style="display:inline-block;">
             @csrf

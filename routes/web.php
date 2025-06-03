@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MovieController::class, 'homepage']);
 Route::get('/movies/{id}/{slug}', [MovieController::class, 'detailmovie']);
 
+Route::get('/movie/detail/{id}/{slug}', [MovieController::class, 'detailmovie'])->name('movie.detail');
 Route::get('/category', [CategoryController::class, 'index'])->name('dosen.index');
 
 Route::get('/movies', [MovieController::class, 'create'])->middleware('auth');
@@ -16,6 +17,8 @@ Route::post('/movie', [MovieController::class, 'store'])->name('mahasiswa.store'
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/data-movie', [MovieController::class, 'dataMovie']);
 
 Route::post('/category', [CategoryController::class, 'store'])->name('dosen.store');
 Route::get('/create-category', [CategoryController::class, 'create']);

@@ -2,8 +2,6 @@
 @section('content')
 @section('navMovie','active')
 
-<div class="col mt-5">
-    <div>
 <h1> Create Data Movie</h1>
 <form action="/movie" method="POST" enctype="multipart/form-data">
     @csrf
