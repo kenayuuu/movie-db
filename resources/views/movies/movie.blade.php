@@ -12,42 +12,27 @@
         <th>Title</th>
         <th>Category</th>
         <th>Actors</th>
-        {{-- <th>Image</th> --}}
         <th>Aksi</th>
     </tr>
 
-    @foreach ($dosens as $dosen)
+    @foreach ($movies as $movie)
 <tr>
-    <td>{{ $dosens->firstItem()+$loop->index}}</td>
-    {{-- <td>{{ $mahasiswa -> id}}</td> --}}
-    <td>{{ $dosen -> title}}</td>
-    <td>{{ $dosen->category->category_name }}</td>
-    <td>{{ $dosen -> actors}}</td>
-    {{-- <td>
-        @if ($dosen->cover_image)
-            <img src="{{ asset('storage/' . $dosen->cover_image) }}" alt="{{ $dosen->title }}" class="img-fluid" width="100">
-        @else
-            <span class="text-muted">No Image</span>
-        @endif
-    </td> --}}
-
-
-
+    <td>{{ $movies->firstItem() + $loop->index }}</td>
+    <td>{{ $movie->title }}</td>
+    <td>{{ $movie->category->category_name }}</td>
+    <td>{{ $movie->actors }}</td>
     <td>
-        <a href="{{ route('movie.detail', ['id' => $dosen->id, 'slug' => Str::slug($dosen->title)]) }}" class="btn btn-info btn-sm">Show</a>
-        <!-- Tombol Edit -->
-        <a href="{{ route('movie.edit', $dosen->id) }}" class="btn btn-warning btn-sm">Edit</a>
-        <!-- Tombol Hapus -->
-        <form action="{{ route('movie.destroy', $dosen->id) }}" method="POST" style="display:inline-block;">
+        <a href="{{ route('movie.detail', ['id' => $movie->id, 'slug' => Str::slug($movie->title)]) }}" class="btn btn-info btn-sm">Show</a>
+        <a href="{{ route('movie.edit', $movie->id) }}" class="btn btn-warning btn-sm">Edit</a>
+        <form action="{{ route('movie.destroy', $movie->id) }}" method="POST" style="display:inline-block;">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus data ini?')">Hapus</button>
         </form>
     </td>
-
 </tr>
-
 @endforeach
 </table>
-{{ $dosens->links() }}
+{{ $movies->links() }}
+
 @endsection
